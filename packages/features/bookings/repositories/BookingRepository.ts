@@ -702,6 +702,9 @@ export class BookingRepository implements IBookingRepository {
       status: {
         in: [BookingStatus.ACCEPTED],
       },
+      // Fundación Hidalguense: each event type is run by different people, so only
+      // bookings of the same event type may block its slots.
+      ...(eventTypeId ? { eventTypeId } : {}),
     };
 
     const bookingsSelect = {
